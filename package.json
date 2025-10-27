@@ -1,0 +1,26 @@
+{
+  "name": "@myolog/layouts",
+  "version": "0.0.1",
+  "description": "layouts for myolog",
+  "type": "module",
+  "exports": {
+    "./section": "./section/index.ts",
+    ".": "./index.ts"
+  },
+  "files": [
+    "index.ts",
+    "**/*.ts",
+    "**/*.astro"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "N_Joy_Shadow",
+  "license": "MIT",
+  "devDependencies": {
+    "astro": ">=5.5.0"
+  },
+  "peerDependencies": {
+    "astro": ">=5.5.0"
+  }
+}
