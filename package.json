@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     "./section": "./section/index.ts",
+    "./content": "./content/index.ts",
     ".": "./index.ts"
   },
   "files": [

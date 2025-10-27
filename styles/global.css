@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@source "../../components";
+@source "../../blog";
 /*@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');*/
 
 :root {
@@ -14,6 +17,7 @@
 	--max-width: 900px;
 }
 
+
 @font-face {
 	font-family: "normal";
 	src: url(/fonts/NanumSquareR.otf);
@@ -29,13 +33,10 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
 	font-size: 20px;
-	line-height: 1.7;
 }
 main {
 	max-width: var(--max-width);

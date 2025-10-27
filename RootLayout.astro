@@ -1,39 +1,48 @@
 ---
 import "./styles/global.css"
+import "./styles/acrylic.css"
+import "./styles/glass.css"
 
-import type { Props as SeoProps } from "astro-seo";
-import Footer from ".//section/Footer.astro";
+import type {Props as SeoProps} from "astro-seo";
+import Footer from "./section/Footer.astro";
 import Header from "./section/Header.astro";
-import { SEO } from "astro-seo"; 
+import {SEO} from "astro-seo";
+import {Pagefind} from "@myolog/components/pagefind";
 
-const { seo } = Astro.props as { seo: SeoProps} ;
+export interface Props {
+    seo: SeoProps
+}
+
+const {seo} = Astro.props as { seo: SeoProps };
 ---
 
 <html lang="ko" transition:name="root" transition:animate="none">
-	<head>
-		<SEO {...seo} charset="utf-8" />
-	</head>
-	<Header />
-	<body>
-		<main>
-			<div class="modal-blur-overlay">
-				<slot />
-			</div>
-		</main>
-	</body>
+<head>
+    <SEO {...seo} charset="utf-8"/>
 
-	<Footer />
-	<script>
-		import mermaid from "mermaid";
-		
-		document.addEventListener("DOMContentLoaded", () => {
-			mermaid.initialize({
-				theme: "dark",
-			});
-		});
+</head>
+<Pagefind/>
+<Header/>
+<body>
+<main>
+    <div class="modal-blur-overlay">
+        <slot/>
+    </div>
+</main>
+</body>
+<Footer/>
 
-		document.addEventListener("astro:after-swap", () => {
-			mermaid.run();
-		});
-	</script>
+<script>
+    import mermaid from "mermaid";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        mermaid.initialize({
+            theme: "dark",
+        });
+    });
+
+    document.addEventListener("astro:after-swap", () => {
+        mermaid.run();
+    });
+</script>
 </html>

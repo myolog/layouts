@@ -1,0 +1,11 @@
+﻿---
+import {RootLayout} from "../index"
+import {Breadcrumb} from "@myolog/components/breadcrumb";
+
+const {seo} = Astro.props
+---
+
+<RootLayout seo={seo}>
+    <Breadcrumb containLastUrl={true}/>
+    <slot/>
+</RootLayout>
