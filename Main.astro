@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import type { Props as SeoProps } from "astro-seo";
+
+import RootLayout from "./RootLayout.astro"
+
+export interface Props extends HTMLAttributes<"main"> {
+    seo?: SeoProps
+}
+
+const { seo } = Astro.props
+---
+
+<RootLayout seo={seo}>
+	<main {...Astro.props} class:list={["max-w-7xl mx-auto px-6 pb-12 mt-6"]}>
+		<slot />
+	</main>
+</RootLayout>

@@ -6,6 +6,7 @@
   "exports": {
     "./section": "./section/index.ts",
     "./content": "./content/index.ts",
+    "./post" : "./post/index.ts",
     ".": "./index.ts"
   },
   "files": [

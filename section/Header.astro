@@ -1,27 +1,193 @@
 ---
-import "./Header.astro.css"
-import { Icon } from "astro-icon/components"
+import { Icon } from 'astro-icon/components';
 ---
 
-<header>
-    <nav>
-        <div class="nav-item-container">
-            <div class="nav-left-items">
-                <h2><a href="/">묘로그</a></h2>
-                <a href="/framework">
-                    framework</a>
-                <a href="/language">
-                    language
-                </a>
-            </div>
-            <div class="nav-right-items">
-                <a href="/search">
-                <a href="https://github.com/n-Joy-Shadow/" target="_blank">
-                    <Icon name="github"/>
-                </a>
-                
-            </div>
+<header class="astro-header fixed top-0 left-0 right-0 z-50 py-4">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center justify-between gap-4">
+      
+      <a
+        href="/"
+        class="logo-container flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-xl border shadow-lg cursor-pointer bg-black/15 border-black/30 dark:bg-white/15 dark:border-white/30"
+      >
+        <div
+          class="logo-icon p-2 rounded-full border bg-linear-to-br from-black/30 to-gray-600/30 border-black/40 dark:from-white/30 dark:to-gray-300/30 dark:border-white/40"
+        >
+          <Icon name="lucide:code-2" class="w-5 h-5 text-black dark:text-white" />
         </div>
-        <div class="nav-blur"/> 
-    </nav>
+        <div>
+          <h1 class="text-sm text-black dark:text-white">Myolog</h1>
+          <p class="text-xs text-black/70 dark:text-white/70">
+            Code. Create. Share.
+          </p>
+        </div>
+      </a>
+
+      <nav
+        class="main-nav hidden md:flex items-center gap-1 px-2 py-2 rounded-full backdrop-blur-xl border shadow-lg bg-black/10 border-black/20 dark:bg-white/10 dark:border-white/20"
+      >
+        <a
+          href="/"
+          class="nav-link px-4 py-2 rounded-full transition-all text-black/80 hover:bg-black/20 hover:text-black dark:text-white/80 dark:hover:bg-white/20 dark:hover:text-white"
+        >
+          Home
+        </a>
+        <a
+          href="/categories"
+          class="nav-link px-4 py-2 rounded-full transition-all text-black/80 hover:bg-black/20 hover:text-black dark:text-white/80 dark:hover:bg-white/20 dark:hover:text-white"
+        >
+          Categories
+        </a>
+        <a
+          href="/tutorials"
+          class="nav-link px-4 py-2 rounded-full transition-all text-black/80 hover:bg-black/20 hover:text-black dark:text-white/80 dark:hover:bg-white/20 dark:hover:text-white"
+        >
+          Tutorials
+        </a>
+        <a
+          href="/components"
+          class="nav-link px-4 py-2 rounded-full transition-all text-black/80 hover:bg-black/20 hover:text-black dark:text-white/80 dark:hover:bg-white/20 dark:hover:text-white"
+        >
+          Components
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button
+          aria-label="Toggle theme"
+          class="theme-toggle-btn p-2 rounded-full backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15"
+        >
+          <div class="theme-icon-wrapper">
+            <Icon name="lucide:sun" class="sun-icon w-5 h-5 text-white/80" />
+            <Icon name="lucide:moon" class="moon-icon w-5 h-5 dark:text-white/80" />
+          </div>
+        </button>
+
+        <button
+          aria-label="Search"
+          class="search-btn p-2 rounded-full backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15"
+        >
+          <Icon
+            name="lucide:search"
+            class="w-5 h-5 text-black/80 dark:text-white/80"
+          />
+        </button>
+        <button
+          aria-label="Open menu"
+          class="menu-toggle-btn md:hidden p-2 rounded-full backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15"
+        >
+          <Icon
+            name="lucide:menu"
+            class="w-5 h-5 text-black/80 dark:text-white/80"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
 </header>
+
+<script>
+  import { animate } from "motion";
+
+  // --- 1. 페이지 로드 애니메이션 ---
+  animate(
+    ".astro-header",
+    { y: [-100, 0] },
+    { duration: 0.5, ease: "easeOut" }
+  );
+  animate(
+    ".logo-container",
+    { opacity: [0, 1], x: [-20, 0] },
+    { duration: 0.5 }
+  );
+  animate(
+    ".main-nav",
+    { opacity: [0, 1], scale: [0.9, 1] },
+    { duration: 0.5, delay: 0.2 }
+  );
+
+  // --- 2. 호버/탭 애니메이션 헬퍼 ---
+  function addHoverTap(selector, scaleHover = 1.05, scaleTap = 0.95) {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach((el) => {
+      el.addEventListener("mouseenter", () =>
+        animate(el, { scale: scaleHover }, { duration: 0.2 })
+      );
+      el.addEventListener("mouseleave", () =>
+        animate(el, { scale: 1.0 }, { duration: 0.2 })
+      );
+      el.addEventListener("mousedown", () =>
+        animate(el, { scale: scaleTap }, { duration: 0.2 })
+      );
+      el.addEventListener("mouseup", () =>
+        animate(el, { scale: scaleHover }, { duration: 0.2 })
+      );
+    });
+  }
+
+  // Logo, Nav Links, Search, Menu
+  addHoverTap(".logo-container");
+  addHoverTap(".nav-link");
+  addHoverTap(".search-btn", 1.1, 0.9);
+  addHoverTap(".menu-toggle-btn", 1.1, 0.9);
+
+  // --- 3. 개별 호버 애니메이션 (로고 아이콘) ---
+  const logoIcon = document.querySelector(".logo-icon");
+  if (logoIcon) {
+    logoIcon.addEventListener("mouseenter", () =>
+      animate(logoIcon, { rotate: 360 }, { duration: 0.6 })
+    );
+    logoIcon.addEventListener("mouseleave", () =>
+      animate(logoIcon, { rotate: 0 }, { duration: 0.6 })
+    );
+  }
+
+  // --- 4. 테마 토글 로직 & 애니메이션 ---
+  const themeBtn = document.querySelector(".theme-toggle-btn");
+  const iconWrapper = themeBtn?.querySelector(".theme-icon-wrapper");
+  const sunIcon = iconWrapper?.querySelector(".sun-icon");
+  const moonIcon = iconWrapper?.querySelector(".moon-icon");
+
+  if (themeBtn && iconWrapper && sunIcon && moonIcon) {
+    // 4.1. 현재 테마 상태 확인 함수
+    const isDark = () => document.documentElement.classList.contains("dark");
+
+    // 4.2. 아이콘 상태 초기화 (페이지 로드 시)
+    const updateIconsVisibility = () => {
+      const showSun = isDark();
+      sunIcon.style.display = showSun ? "inline-block" : "none";
+      moonIcon.style.display = showSun ? "none" : "inline-block";
+    };
+    updateIconsVisibility(); // 즉시 실행
+
+    // 4.3. 버튼 호버/탭 애니메이션 (React: whileHover/whileTap)
+    themeBtn.addEventListener("mouseenter", () =>
+      animate(themeBtn, { scale: 1.1, rotate: 180 }, { duration: 0.3 })
+    );
+    themeBtn.addEventListener("mouseleave", () =>
+      animate(themeBtn, { scale: 1.0, rotate: 0 }, { duration: 0.3 })
+    );
+    themeBtn.addEventListener("mousedown", () =>
+      animate(themeBtn, { scale: 0.9 }, { duration: 0.2 })
+    );
+    themeBtn.addEventListener("mouseup", () =>
+      animate(themeBtn, { scale: 1.1 }, { duration: 0.2 })
+    );
+
+    // 4.4. 클릭 이벤트 (테마 변경 + 아이콘 애니메이션)
+    themeBtn.addEventListener("click", () => {
+      // <html>의 'dark' 클래스 토글
+      document.documentElement.classList.toggle("dark");
+
+      // 4.5. 아이콘 전환 애니메이션 (React: key={theme})
+      animate(
+        iconWrapper,
+        { opacity: [0, 1], rotate: [-180, 0] },
+        { duration: 0.3 }
+      );
+      
+      // 애니메이션 직후 아이콘 가시성 업데이트
+      updateIconsVisibility();
+    });
+  }
+</script>

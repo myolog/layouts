@@ -1,0 +1,256 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Card } from "@myolog/components/card"
+
+
+const categories = [
+  { name: 'JavaScript', count: 24 },
+  { name: 'React', count: 18 },
+  { name: 'TypeScript', count: 15 },
+  { name: 'Node.js', count: 12 },
+  { name: 'CSS', count: 10 },
+  { name: 'Web Design', count: 8 },
+];
+
+const trendingPosts = [
+  'Building a REST API with Node.js',
+  'React Hooks Deep Dive',
+  'CSS Grid Layout Mastery',
+  'TypeScript Best Practices',
+];
+
+const skillStack = [
+  { name: 'React', icon: 'logos:react', color: '#61DAFB' },
+  { name: 'TypeScript', icon: 'logos:typescript-icon', color: '#3178C6' },
+  { name: 'JavaScript', icon: 'logos:javascript', color: '#F7DF1E' },
+  { name: 'Node.js', icon: 'logos:nodejs-icon', color: '#339933' },
+  { name: 'Python', icon: 'logos:python', color: '#3776AB' },
+  { name: 'Next.js', icon: 'logos:nextjs-icon', color: '#000000' },
+  { name: 'Tailwind', icon: 'logos:tailwindcss-icon', color: '#06B6D4' },
+  { name: 'Git', icon: 'logos:git-icon', color: '#F05032' },
+  { name: 'Docker', icon: 'logos:docker-icon', color: '#2496ED' },
+  { name: 'VS Code', icon: 'logos:visual-studio-code', color: '#007ACC' },
+  { name: 'MongoDB', icon: 'logos:mongodb-icon', color: '#47A248' },
+  { name: 'PostgreSQL', icon: 'logos:postgresql', color: '#4169E1' },
+];
+---
+
+<!-- 2. motion 컴포넌트를 표준 HTML 태그로 변경 -->
+<aside class="space-y-6">
+  <!-- Trending Posts -->
+  <Card
+    class="sidebar-card p-6"
+    data-card-id="trending"
+  >
+    <div class="flex items-center gap-2 mb-4">
+      <!-- 3. 아이콘에 스크립트용 클래스 추가 -->
+      <div class="trending-icon">
+        <Icon
+          name="lucide:trending-up"
+          class="w-5 h-5 text-black dark:text-white"
+        />
+      </div>
+      <h3 class="text-black dark:text-white">Trending Posts</h3>
+    </div>
+    <ul class="space-y-3">
+      {trendingPosts.map((post) => (
+        <!-- 4. 리스트 아이템에 스크립트용 클래스 추가 -->
+        <li class="trending-post-item">
+          <a
+            href="#"
+            class="trending-post-link text-sm block transition-colors text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white"
+          >
+            {post}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </Card>
+
+  <!-- Skill Stack -->
+  <Card
+    class="sidebar-card p-6 opacity-0"
+    data-card-id="stack"
+  >
+    <div class="flex items-center gap-2 mb-4">
+      <div class="stack-icon">
+        <Icon
+          name="carbon:skill-level-advanced"
+          class="w-5 h-5 text-black dark:text-white"
+        />
+      </div>
+      <h3 class="text-black dark:text-white">Tech Stack</h3>
+    </div>
+    <div class="grid grid-cols-4 gap-3">
+      {skillStack.map((skill) => (
+        <div class="stack-item flex flex-col items-center gap-1 group">
+          <div
+            class="stack-item-box p-2 rounded-lg backdrop-blur-xl border transition-all bg-black/10 border-black/20 group-hover:bg-black/20 dark:bg-white/10 dark:border-white/20 dark:group-hover:bg-white/20"
+          >
+            <Icon name={skill.icon} class="w-6 h-6" />
+          </div>
+          <span class="text-xs text-black/60 dark:text-white/60">
+            {skill.name}
+          </span>
+        </div>
+      ))}
+    </div>
+  </Card>
+
+  <!-- Categories -->
+  <Card
+    class="sidebar-card p-6"
+    data-card-id="categories"
+  >
+    <div class="flex items-center gap-2 mb-4">
+      <div class="categories-icon">
+        <Icon name="lucide:tag" class="w-5 h-5 text-black dark:text-white" />
+      </div>
+      <h3 class="text-black dark:text-white">Categories</h3>
+    </div>
+    <ul class="space-y-2">
+      {categories.map((category) => (
+        <li class="category-item">
+          <a
+            href="#"
+            class="category-link flex items-center justify-between text-sm group transition-colors text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white"
+          >
+            <span>{category.name}</span>
+            <span
+              class="category-count px-2 py-0.5 rounded-full text-xs transition-colors bg-black/10 group-hover:bg-black/20 dark:bg-white/10 dark:group-hover:bg-white/20"
+            >
+              {category.count}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </Card>
+
+
+</aside>
+
+<!-- 5. 클라이언트 스크립트 -->
+<script>
+  import { animate, inView, stagger } from "motion";
+
+  // --- 1. 무한 반복 아이콘 애니메이션 ---
+  animate(
+    ".trending-icon",
+    { rotate: [0, 15, -15, 0], scale: [1, 1.1, 1.1, 1] },
+    { duration: 2, repeat: Infinity, repeatDelay: 3 }
+  );
+
+  animate(
+    ".stack-icon",
+    { rotate: [0, 360] },
+    { duration: 20, repeat: Infinity, ease: "linear" }
+  );
+
+  animate(
+    ".categories-icon",
+    { rotate: [0, -10, 10, 0] },
+    { duration: 2, repeat: Infinity, repeatDelay: 3 }
+  );
+
+  // --- 2. 카드 진입(InView) 애니메이션 ---
+  const cards = document.querySelectorAll(".sidebar-card");
+  const cardDelays = {
+    trending: 0,
+    stack: 0.2,
+    categories: 0.3,
+    newsletter: 0.5,
+  };
+
+  cards.forEach((card) => {
+    //@ts-ignore
+    const cardId = card.dataset.cardId;
+    const delay = cardDelays[cardId] || 0;
+
+    // 카드가 화면에 보일 때 한 번만 실행
+    inView(
+      card,
+      () => {
+        // 2-1. 카드 자체의 애니메이션
+        animate(
+          card,
+          { opacity: [0, 1], y: [20, 0] },
+          { duration: 0.5, delay }
+        );
+
+        // 2-2. 카드 내부 리스트/그리드의 순차(stagger) 애니메이션
+        if (cardId === "trending") {
+          const items = card.querySelectorAll(".trending-post-item");
+          animate(items, { opacity: [0, 1], x: [-20, 0] }, { duration: 0.3, delay: stagger(0.1, { start: delay }) });
+        }
+        if (cardId === "stack") {
+          const items = card.querySelectorAll(".stack-item");
+          animate(items, { opacity: [0, 1], scale: [0, 1] }, { duration: 0.3, delay: stagger(0.05, { start: delay + 0.3 }) });
+        }
+        if (cardId === "categories") {
+          const items = card.querySelectorAll(".category-item");
+          animate(items, { opacity: [0, 1], x: [-20, 0] }, { duration: 0.3, delay: stagger(0.1, { start: delay + 0.4 }) });
+        }
+      }
+    );
+  });
+  // 3-1. 카드 호버 (Newsletter는 그림자 때문에 별도 처리)
+  cards.forEach((card) => {
+    if (card.classList.contains('newsletter-card')) return;
+    card.addEventListener('mouseenter', () => animate(card, { scale: 1.02 }));
+    card.addEventListener('mouseleave', () => animate(card, { scale: 1.0 }));
+  });
+
+  // 3-2. Newsletter 카드 호버 (그림자 포함)
+  const nlCard = document.querySelector(".newsletter-card");
+  if (nlCard) {
+    const getShadow = () => document.documentElement.classList.contains('dark')
+      ? '0 20px 40px -10px rgba(255, 255, 255, 0.2)'
+      : '0 20px 40px -10px rgba(0, 0, 0, 0.2)';
+
+    nlCard.addEventListener('mouseenter', () => animate(nlCard, { scale: 1.02, boxShadow: getShadow() }));
+    nlCard.addEventListener('mouseleave', () => animate(nlCard, { scale: 1.0, boxShadow: 'none' }));
+  }
+
+  // 3-3. Trending Post 링크 호버
+  document.querySelectorAll('.trending-post-link').forEach(link => {
+    link.addEventListener('mouseenter', () => animate(link, { x: 5, scale: 1.05 }));
+    link.addEventListener('mouseleave', () => animate(link, { x: 0, scale: 1.0 }));
+  });
+
+  // 3-4. Stack Item 호버
+  document.querySelectorAll('.stack-item').forEach(item => {
+    const box = item.querySelector('.stack-item-box');
+    
+    item.addEventListener('mouseenter', () => {
+      animate(item, { scale: 1.2, rotate: [0, -10, 10, -10, 0] }, { duration: 0.5 });
+      if (box) {
+         const shadow = document.documentElement.classList.contains('dark')
+          ? '0 10px 20px -5px rgba(255, 255, 255, 0.3)'
+          : '0 10px 20px -5px rgba(0, 0, 0, 0.3)';
+         animate(box, { boxShadow: shadow });
+      }
+    });
+    
+    item.addEventListener('mouseleave', () => {
+      animate(item, { scale: 1.0, rotate: 0 }, { duration: 0.3 });
+      if (box) animate(box, { boxShadow: 'none' });
+    });
+  });
+
+  // 3-5. Category 링크 & 뱃지 호버
+  document.querySelectorAll('.category-link').forEach(link => {
+    const countBadge = link.querySelector('.category-count');
+    link.addEventListener('mouseenter', () => {
+      animate(link, { x: 5 });
+      if (countBadge) animate(countBadge, { scale: 1.2 });
+    });
+    link.addEventListener('mouseleave', () => {
+      animate(link, { x: 0 });
+      if (countBadge) animate(countBadge, { scale: 1.0 });
+    });
+  });
+
+
+
+</script>

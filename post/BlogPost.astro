@@ -1,0 +1,221 @@
+---
+import { Icon } from 'astro-icon/components';
+// 1. Astro 버전의 컴포넌트를 임포트한다고 가정합니다.
+import { Breadcrumb } from '@myolog/components/breadcrumb';
+
+// 2. Props 인터페이스 변경 (theme, onBack 제거 -> backHref 추가)
+interface Props {
+  title: string;
+  date: string;
+  readTime: string;
+  category: string;
+  imageUrl: string;
+  backHref: string; // "뒤로 가기"를 위한 URL (예: "/blog")
+}
+
+const { title, date, readTime, category, imageUrl, backHref } = Astro.props;
+
+---
+
+<div class="post-detail-root max-w-7xl mx-auto px-6 py-8">
+  <div class="post-detail-breadcrumb mb-6">
+    <Breadcrumb/>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="post-detail-article-wrapper lg:col-span-8">
+      <article
+        class="rounded-2xl backdrop-blur-xl border overflow-hidden bg-black/10 border-black/20 dark:bg-white/10 dark:border-white/20"
+      >
+        <div class="relative h-96 overflow-hidden">
+          <img src={imageUrl} alt={title} class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 to-transparent"></div>
+          <div class="absolute bottom-6 left-6">
+            <span
+              class="px-3 py-1 text-xs backdrop-blur-xl rounded-full border bg-black/90 text-white border-black/30 dark:bg-white/90 dark:text-black dark:border-white/30"
+            >
+              {category}
+            </span>
+          </div>
+        </div>
+
+        <div class="p-8 md:p-12">
+          <h1 class="mb-6 text-black dark:text-white">
+            {title}
+          </h1>
+
+          <div class="flex items-center gap-6 mb-8 pb-8 border-b border-black/10 dark:border-white/10">
+            <div class="flex items-center gap-2">
+              <div
+                class="w-12 h-12 rounded-full backdrop-blur-xl border flex items-center justify-center bg-linear-to-br from-black/30 to-gray-600/30 border-black/20 text-black dark:from-white/30 dark:to-gray-300/30 dark:border-white/20 dark:text-white"
+              >
+                JD
+              </div>
+              <div>
+                <p class="text-sm text-black dark:text-white">John Doe</p>
+                <p class="text-xs text-black/60 dark:text-white/60">
+                  Senior Developer
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 text-sm text-black/60 dark:text-white/60">
+              <div class="flex items-center gap-1">
+                <Icon name="lucide:calendar" class="w-4 h-4" />
+                <span>{date}</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <Icon name="lucide:clock" class="w-4 h-4" />
+                <span>{readTime}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="prose prose-invert max-w-none">
+            {"hi"}
+          <div class="flex items-center gap-4 mt-12 pt-8 border-t border-black/10 dark:border-white/10">
+            <button
+              class="flex items-center gap-2 px-4 py-2 rounded-lg backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 text-black/80 hover:text-black dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15 dark:text-white/80 dark:hover:text-white"
+            >
+              <Icon name="lucide:thumbs-up" class="w-4 h-4" />
+              <span>124</span>
+            </button>
+            <button
+              class="flex items-center gap-2 px-4 py-2 rounded-lg backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 text-black/80 hover:text-black dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15 dark:text-white/80 dark:hover:text-white"
+            >
+              <Icon name="lucide:bookmark" class="w-4 h-4" />
+              <span>Save</span>
+            </button>
+            <button
+              class="flex items-center gap-2 px-4 py-2 rounded-lg backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 text-black/80 hover:text-black dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15 dark:text-white/80 dark:hover:text-white"
+            >
+              <Icon name="lucide:share-2" class="w-4 h-4" />
+              <span>Share</span>
+            </button>
+          </div>
+
+          <div class="mt-8 p-6 rounded-xl backdrop-blur-xl border bg-black/5 border-black/10 dark:bg-white/5 dark:border-white/10">
+            <div class="flex items-start gap-4">
+              <div
+                class="w-16 h-16 rounded-full backdrop-blur-xl border flex items-center justify-center shrink-0 bg-linear-to-br from-black/30 to-gray-600/30 border-black/20 text-black dark:from-white/30 dark:to-gray-300/30 dark:border-white/20 dark:text-white"
+              >
+                JD
+              </div>
+              <div>
+                <h3 class="mb-2 text-black dark:text-white">
+                  About the Author
+                </h3>
+                <p class="text-sm mb-3 text-black/70 dark:text-white/70">
+                  John Doe is a senior full-stack developer...
+                </p>
+                <div class="flex gap-2">
+                  <button
+                    class="px-3 py-1 text-xs rounded-lg backdrop-blur-xl border transition-all bg-black/20 hover:bg-black/30 text-black border-black/30 dark:bg-white/20 dark:hover:bg-white/30 dark:text-white dark:border-white/30"
+                  >
+                    Follow
+                  </button>
+                  <button
+                    class="px-3 py-1 text-xs rounded-lg backdrop-blur-xl border transition-all bg-black/10 hover:bg-black/15 text-black/80 border-black/20 dark:bg-white/10 dark:hover:bg-white/15 dark:text-white/80 dark:border-white/20"
+                  >
+                    More Posts
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <aside class="post-detail-toc hidden lg:block lg:col-span-4">
+      
+    </aside>
+  </div>
+
+  
+</div>
+
+<script>
+  import { animate, inView } from 'motion';
+
+  // --- 1. 페이지 진입 애니메이션 (순차적) ---
+  animate(
+    '.post-detail-root',
+    { opacity: [0, 1] },
+    { duration: 0.5 }
+  );
+  animate(
+    '.post-detail-breadcrumb',
+    { opacity: [0, 1], y: [-10, 0] },
+    { duration: 0.5, delay: 0.1 }
+  );
+  animate(
+    '.post-detail-back-btn',
+    { opacity: [0, 1], x: [-20, 0] },
+    { duration: 0.5, delay: 0.2 }
+  );
+  animate(
+    '.post-detail-article-wrapper',
+    { opacity: [0, 1], y: [30, 0] },
+    { duration: 0.6, delay: 0.3 }
+  );
+  animate(
+    '.post-detail-toc',
+    { opacity: [0, 1], x: [20, 0] },
+    { duration: 0.6, delay: 0.5 }
+  );
+  animate(
+    '.post-detail-related',
+    { opacity: [0, 1], y: [30, 0] },
+    { duration: 0.6, delay: 0.7 }
+  );
+  
+  // 'Related Posts' 카드의 개별 진입 (React: delay: 0.7 + i * 0.1)
+  const relatedCards = document.querySelectorAll('.related-post-card');
+  relatedCards.forEach((card, i) => {
+    // 스크롤 시 한 번만 실행
+    inView(
+      card,
+      () => {
+        animate(
+          card,
+          { opacity: [0, 1], y: [20, 0] },
+          // React의 delay 로직과 동일하게 맞춤
+          { duration: 0.5, delay: 0.7 + (i * 0.1) } 
+        );
+      }
+    );
+  });
+
+  // --- 2. 호버/탭 애니메이션 ---
+
+  // Back Button
+  const backBtn = document.querySelector('.post-detail-back-btn');
+  if (backBtn) {
+    backBtn.addEventListener('mouseenter', () => {
+      animate(backBtn, { scale: 1.05, x: -5 }, { duration: 0.2 });
+    });
+    backBtn.addEventListener('mouseleave', () => {
+      animate(backBtn, { scale: 1.0, x: 0 }, { duration: 0.2 });
+    });
+    backBtn.addEventListener('mousedown', () => {
+      animate(backBtn, { scale: 0.95 }, { duration: 0.2 });
+    });
+    backBtn.addEventListener('mouseup', () => {
+      animate(backBtn, { scale: 1.05 }, { duration: 0.2 }); // 호버 상태로
+    });
+  }
+
+  // Related Post Cards
+  relatedCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      const shadow = isDark
+        ? '0 20px 40px -10px rgba(255, 255, 255, 0.2)'
+        : '0 20px 40px -10px rgba(0, 0, 0, 0.2)';
+      animate(card, { scale: 1.03, y: -5, boxShadow: shadow });
+    });
+    card.addEventListener('mouseleave', () => {
+      animate(card, { scale: 1.0, y: 0, boxShadow: 'none' });
+    });
+  });
+</script>

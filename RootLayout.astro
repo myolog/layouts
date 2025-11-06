@@ -1,48 +1,55 @@
 ---
-import "./styles/global.css"
-import "./styles/acrylic.css"
-import "./styles/glass.css"
+import "./styles/global.css";
+import "./styles/acrylic.css";
+import "./styles/glass.css";
 
-import type {Props as SeoProps} from "astro-seo";
-import Footer from "./section/Footer.astro";
-import Header from "./section/Header.astro";
-import {SEO} from "astro-seo";
-import {Pagefind} from "@myolog/components/pagefind";
+import type { Props as SeoProps } from "astro-seo";
+import { Header, Footer, RootBackground } from "@myolog/layouts/section";
+import { SEO } from "astro-seo";
+import { Pagefind } from "@myolog/components/pagefind";
 
 export interface Props {
-    seo: SeoProps
+	seo?: SeoProps;
 }
 
-const {seo} = Astro.props as { seo: SeoProps };
+const { seo } = Astro.props as { seo: SeoProps };
 ---
 
 <html lang="ko" transition:name="root" transition:animate="none">
-<head>
-    <SEO {...seo} charset="utf-8"/>
+	<head>
+		<SEO {...seo} charset="utf-8" />
+	</head>
+	<Pagefind />
+	        
 
-</head>
-<Pagefind/>
-<Header/>
-<body>
-<main>
-    <div class="modal-blur-overlay">
-        <slot/>
-    </div>
-</main>
-</body>
-<Footer/>
+	<RootBackground>
+		<Header />
+		<div class="h-20"/>
+		<body>
+			<slot />
+		</body>
+		<Footer />
+	</RootBackground>
 
-<script>
-    import mermaid from "mermaid";
+	<script>
+		import mermaid from "mermaid";
 
-    document.addEventListener("DOMContentLoaded", () => {
-        mermaid.initialize({
-            theme: "dark",
-        });
-    });
+		document.addEventListener("DOMContentLoaded", () => {
+			mermaid.initialize({
+				theme: "dark",
+			});
+		});
 
-    document.addEventListener("astro:after-swap", () => {
-        mermaid.run();
-    });
-</script>
+		document.addEventListener("astro:after-swap", () => {
+			mermaid.run();
+		});
+
+		//theme
+		document.documentElement.classList.toggle(
+			"dark",
+			localStorage.theme === "dark" ||
+				(!("theme" in localStorage) &&
+					window.matchMedia("(prefers-color-scheme: dark)").matches)
+		);
+	</script>
 </html>

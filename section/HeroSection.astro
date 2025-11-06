@@ -1,0 +1,33 @@
+---
+
+export interface Props { 
+    title: string
+    subtitle: string
+}
+
+const { title, subtitle } = Astro.props
+
+---
+
+<section id="hero-section" class="max-w-7xl mx-auto px-6 py-12">
+    <div class="text-center mb-12">
+        <h2 id="hero-title" class="mb-4 text-black dark:text-white">{title}</h2>
+        <p id="hero-subtitle" class="max-w-2xl mx-auto dark:text-white/70 text-black/70">{subtitle}</p>
+    </div>
+</section>
+
+<script>
+	import { animate, inView } from "motion"
+
+	const heroSection = document.querySelector("#hero-section")!
+	const titleEl = heroSection.querySelector("div h2")!
+	const subTitleEl = heroSection.querySelector("div p")!
+
+	inView(titleEl, (el) => {
+		animate(el,{ opacity: [0,1], y: [-20, 0]}, { duration: 0.6, delay: 0.2})
+	})
+
+	inView(subTitleEl, (el) => {
+		animate(el, { opacity: [0,1]}, { duration: 0.6, delay: 0.4})
+	})
+</script>

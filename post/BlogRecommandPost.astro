@@ -1,0 +1,28 @@
+---
+
+---
+<div class="post-detail-related mt-12">
+    <h2 class="mb-6 text-black dark:text-white">Related Posts</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {[1, 2].map((i) => (
+        <a
+          href="#"
+          class="related-post-card rounded-xl backdrop-blur-xl border p-4 cursor-pointer group bg-black/10 border-black/20 hover:bg-black/15 dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15"
+          data-index={i}
+        >
+          <h3
+            class="mb-2 transition-colors text-black group-hover:text-gray-700 dark:text-white dark:group-hover:text-gray-300"
+          >
+            {i === 1 ? 'TypeScript Tips: Advanced Type Patterns' : 'Building Scalable APIs with Node.js'}
+          </h3>
+          <p class="text-sm text-black/60 dark:text-white/60">
+            {i === 1 ? 'Dive deep into TypeScript\'s type system...' : 'Learn how to architect production-ready APIs...'}
+          </p>
+        </a>
+      ))}
+    </div>
+</div>
+
+<script>
+    
+</script>
