@@ -6,6 +6,7 @@
 
 @custom-variant dark (&:is(.dark , .dark *));
 
+@plugin "@tailwindcss/typography";
 
 @font-face {
 	font-family: "normal";
@@ -209,5 +210,44 @@ body {
 
 html {
   font-size: var(--font-size);
+}
+
+
+@utility prose-myo {
+  --tw-prose-body: rgb(51 65 85);
+  --tw-prose-headings: rgb(15 23 42);
+  --tw-prose-lead: rgb(71 85 105);
+  --tw-prose-links: rgb(15 23 42);
+  --tw-prose-bold: rgb(15 23 42);
+  --tw-prose-counters: rgb(100 116 139);
+  --tw-prose-bullets: rgb(148 163 184);
+  --tw-prose-hr: rgb(203 213 225);
+  --tw-prose-quotes: rgb(15 23 42);
+  --tw-prose-quote-borders: rgb(203 213 225);
+  --tw-prose-captions: rgb(71 85 105);
+  --tw-prose-code: rgb(15 23 42);
+  --tw-prose-code-bg: rgb(241 245 249);
+  --tw-prose-pre-code: rgb(226 232 240);
+  --tw-prose-pre-bg: rgb(15 23 42);
+  --tw-prose-th-borders: rgb(203 213 225);
+  --tw-prose-td-borders: rgb(226 232 240);
+  
+  --tw-prose-invert-body: rgb(226 232 240);
+  --tw-prose-invert-headings: rgb(248 250 252);
+  --tw-prose-invert-lead: rgb(203 213 225);
+  --tw-prose-invert-links: rgb(255 255 255);
+  --tw-prose-invert-bold: rgb(255 255 255);
+  --tw-prose-invert-counters: rgb(148 163 184);
+  --tw-prose-invert-bullets: rgb(148 163 184);
+  --tw-prose-invert-hr: rgb(71 85 105);
+  --tw-prose-invert-quotes: rgb(226 232 240);
+  --tw-prose-invert-quote-borders: rgb(71 85 105);
+  --tw-prose-invert-captions: rgb(148 163 184);
+  --tw-prose-invert-code: rgb(248 250 252);
+  --tw-prose-invert-code-bg: rgba(255, 255, 255, 0.1);
+  --tw-prose-invert-pre-code: rgb(226 232 240);
+  --tw-prose-invert-pre-bg: rgba(0, 0, 0, 0.5);
+  --tw-prose-invert-th-borders: rgb(71 85 105);
+  --tw-prose-invert-td-borders: rgb(51 65 85);
 }
 
