@@ -1,7 +1,10 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { type Icon as IconType } from 'virtual:astro-icon';
 import { Card } from "@myolog/components/card"
 
+import { CategoryData, ContentData } from '@myolog/markdown/data';
+import { Profile } from '@myolog/components/misc';
 
 const categories = [
   { name: 'JavaScript', count: 24 },
@@ -37,6 +40,10 @@ const skillStack = [
 
 <!-- 2. motion 컴포넌트를 표준 HTML 태그로 변경 -->
 <aside class="space-y-6">
+  <!-- 프로필 -->
+  <Card class='sidebar-card p-6'>
+    <Profile/>
+  </Card> 
   <!-- Trending Posts -->
   <Card
     class="sidebar-card p-6"
@@ -87,7 +94,7 @@ const skillStack = [
           <div
             class="stack-item-box p-2 rounded-lg backdrop-blur-xl border transition-all bg-black/10 border-black/20 group-hover:bg-black/20 dark:bg-white/10 dark:border-white/20 dark:group-hover:bg-white/20"
           >
-            <Icon name={skill.icon} class="w-6 h-6" />
+            <Icon name={skill.icon as IconType} class="w-6 h-6" />
           </div>
           <span class="text-xs text-black/60 dark:text-white/60">
             {skill.name}
@@ -126,7 +133,6 @@ const skillStack = [
       ))}
     </ul>
   </Card>
-
 
 </aside>
 
