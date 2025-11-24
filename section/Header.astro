@@ -1,59 +1,37 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { Button } from '../../components/Common';
 ---
 
 <header class="astro-header fixed top-0 left-0 right-0 z-50 py-4">
   <div class="max-w-7xl mx-auto px-6">
     <div class="flex items-center justify-between gap-4">
-      
-      <a
-        href="/"
-        class="logo-container flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-xl border shadow-lg cursor-pointer bg-black/15 border-black/30 dark:bg-white/15 dark:border-white/30"
-      >
-        <div
-          class="logo-icon p-2 rounded-full border bg-linear-to-br from-black/30 to-gray-600/30 border-black/40 dark:from-white/30 dark:to-gray-300/30 dark:border-white/40"
-        >
-          <Icon name="lucide:code-2" class="w-5 h-5 text-black dark:text-white" />
-        </div>
-        <div>
-          <h1 class="text-sm text-black dark:text-white">Myolog</h1>
-          <p class="text-xs text-black/70 dark:text-white/70">
-            Code. Create. Share.
-          </p>
-        </div>
-      </a>
-
-      <nav
-        class="main-nav hidden md:flex items-center gap-1 px-2 py-2 rounded-full backdrop-blur-xl border shadow-lg bg-black/10 border-black/20 dark:bg-white/10 dark:border-white/20"
-      >
+      <div class="flex items-center gap-3">
         <a
           href="/"
-          class="nav-link px-4 py-2 rounded-full transition-all text-black/80 hover:bg-black/20 hover:text-black dark:text-white/80 dark:hover:bg-white/20 dark:hover:text-white"
+          class="logo-container flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-xl border shadow-lg cursor-pointer bg-black/15 border-black/30 dark:bg-white/15 dark:border-white/30"
         >
-          Home
+          <div
+            class="logo-icon p-2 rounded-full border bg-linear-to-br from-black/30 to-gray-600/30 border-black/40 dark:from-white/30 dark:to-gray-300/30 dark:border-white/40"
+          >
+            <Icon name="lucide:code-2" class="w-5 h-5 text-black dark:text-white" />
+          </div>
+          <div>
+            <h1 class="text-sm text-black dark:text-white">Myolog</h1>
+            <p class="text-xs text-black/70 dark:text-white/70">
+              Code. Create. Share.
+            </p>
+          </div>
         </a>
-        <a
-          href="/categories"
-          class="nav-link px-4 py-2 rounded-full transition-all text-black/80 hover:bg-black/20 hover:text-black dark:text-white/80 dark:hover:bg-white/20 dark:hover:text-white"
-        >
-          Categories
-        </a>
-        <a
-          href="/tutorials"
-          class="nav-link px-4 py-2 rounded-full transition-all text-black/80 hover:bg-black/20 hover:text-black dark:text-white/80 dark:hover:bg-white/20 dark:hover:text-white"
-        >
-          Tutorials
-        </a>
-        <a
-          href="/components"
-          class="nav-link px-4 py-2 rounded-full transition-all text-black/80 hover:bg-black/20 hover:text-black dark:text-white/80 dark:hover:bg-white/20 dark:hover:text-white"
-        >
-          Components
-        </a>
-      </nav>
+
+        <Button icon="lucide:list" title="Categories" variant="translucent" class="relative hidden md:flex" href="/categories"/>
+      </div>
+
+
 
       <div class="flex items-center gap-2">
-        <button
+        <Button
+          variant="translucent" size="icon"
           aria-label="Toggle theme"
           class="theme-toggle-btn p-2 rounded-full backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15"
         >
@@ -61,9 +39,11 @@ import { Icon } from 'astro-icon/components';
             <Icon name="lucide:sun" class="sun-icon w-5 h-5 text-white/80" />
             <Icon name="lucide:moon" class="moon-icon w-5 h-5 dark:text-white/80" />
           </div>
-        </button>
+        </Button>
 
-        <button
+        <Button
+          variant="translucent" size="icon"
+
           aria-label="Search"
           class="search-btn p-2 rounded-full backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15"
         >
@@ -71,8 +51,9 @@ import { Icon } from 'astro-icon/components';
             name="lucide:search"
             class="w-5 h-5 text-black/80 dark:text-white/80"
           />
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="translucent" size="icon"
           aria-label="Open menu"
           class="menu-toggle-btn md:hidden p-2 rounded-full backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15"
         >
@@ -80,7 +61,7 @@ import { Icon } from 'astro-icon/components';
             name="lucide:menu"
             class="w-5 h-5 text-black/80 dark:text-white/80"
           />
-        </button>
+        </Button>
       </div>
     </div>
   </div>
@@ -100,11 +81,7 @@ import { Icon } from 'astro-icon/components';
     { opacity: [0, 1], x: [-20, 0] },
     { duration: 0.5 }
   );
-  animate(
-    ".main-nav",
-    { opacity: [0, 1], scale: [0.9, 1] },
-    { duration: 0.5, delay: 0.2 }
-  );
+
 
   // --- 2. 호버/탭 애니메이션 헬퍼 ---
   function addHoverTap(selector, scaleHover = 1.05, scaleTap = 0.95) {
@@ -155,7 +132,9 @@ import { Icon } from 'astro-icon/components';
     // 4.2. 아이콘 상태 초기화 (페이지 로드 시)
     const updateIconsVisibility = () => {
       const showSun = isDark();
+      //@ts-ignore
       sunIcon.style.display = showSun ? "inline-block" : "none";
+      //@ts-ignore
       moonIcon.style.display = showSun ? "none" : "inline-block";
     };
     updateIconsVisibility(); // 즉시 실행
@@ -189,5 +168,16 @@ import { Icon } from 'astro-icon/components';
       // 애니메이션 직후 아이콘 가시성 업데이트
       updateIconsVisibility();
     });
+  }
+
+
+  // 일단 모르겠고 위에껀 나중에 리팩토링하고 다크모드 추가 ㄱㄱ localstorage theme에 저장하면됨
+  const darkModeBtn = document.querySelector("button[aria-label='Search']")
+  if(darkModeBtn) {
+    darkModeBtn.addEventListener('click', (e) => {
+      
+    })
+  } else {
+    console.log("없다 이기")
   }
 </script>
