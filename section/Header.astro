@@ -33,7 +33,7 @@ import { Button } from '../../components/Common';
         <Button
           variant="translucent" size="icon"
           aria-label="Toggle theme"
-          class="theme-toggle-btn p-2 rounded-full backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15"
+          class="theme-toggle-btn"
         >
           <div class="theme-icon-wrapper w-5 h-5 flex self-center">
             <Icon name="lucide:sun" class="sun-icon w-5 h-5 text-white/80" />
@@ -43,9 +43,8 @@ import { Button } from '../../components/Common';
 
         <Button
           variant="translucent" size="icon"
-
           aria-label="Search"
-          class="search-btn p-2 rounded-full backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15"
+          class="search-btn"
         >
           <Icon
             name="lucide:search"
@@ -55,7 +54,7 @@ import { Button } from '../../components/Common';
         <Button
           variant="translucent" size="icon"
           aria-label="Open menu"
-          class="menu-toggle-btn md:hidden p-2 rounded-full backdrop-blur-xl border transition-all bg-black/10 border-black/20 hover:bg-black/15 dark:bg-white/10 dark:border-white/20 dark:hover:bg-white/15"
+          class="menu-toggle-btn md:hidden"
         >
           <Icon
             name="lucide:menu"
@@ -68,9 +67,9 @@ import { Button } from '../../components/Common';
 </header>
 
 <script>
-  import { animate } from "motion";
+  import { hover, press, animate } from "motion";
 
-  // --- 1. 페이지 로드 애니메이션 ---
+  //  페이지 로드 애니메이션
   animate(
     ".astro-header",
     { y: [-100, 0] },
@@ -82,102 +81,57 @@ import { Button } from '../../components/Common';
     { duration: 0.5 }
   );
 
+  // 버튼 애니메이션
+  [".logo-container", ".search-btn", ".menu-toggle-btn"].forEach((clazz) => {
+    hover(clazz, (el) => {
+      animate(el, { scale: 1.1}, { duration: 0.2 })
+      return () => animate(el, { scale: 1.0 }, { duration: 0.2 })
+    })
+    press(clazz, (el) => {
+      animate(el, { scale: 0.95 }, { duration: 0.2 })
+      return () => animate(el, { scale: 1.0 }, { duration: 0.2 })
+    })
+  })
 
-  // --- 2. 호버/탭 애니메이션 헬퍼 ---
-  function addHoverTap(selector, scaleHover = 1.05, scaleTap = 0.95) {
-    const elements = document.querySelectorAll(selector);
-    elements.forEach((el) => {
-      el.addEventListener("mouseenter", () =>
-        animate(el, { scale: scaleHover }, { duration: 0.2 })
-      );
-      el.addEventListener("mouseleave", () =>
-        animate(el, { scale: 1.0 }, { duration: 0.2 })
-      );
-      el.addEventListener("mousedown", () =>
-        animate(el, { scale: scaleTap }, { duration: 0.2 })
-      );
-      el.addEventListener("mouseup", () =>
-        animate(el, { scale: scaleHover }, { duration: 0.2 })
-      );
-    });
-  }
 
-  // Logo, Nav Links, Search, Menu
-  addHoverTap(".logo-container");
-  addHoverTap(".nav-link");
-  addHoverTap(".search-btn", 1.1, 0.9);
-  addHoverTap(".menu-toggle-btn", 1.1, 0.9);
+  hover(".logo-icon", (el) => {
+    animate(el, { rotate: 360 }, { duration: 0.6 })
+    return () => animate(el, { rotate: 0 }, { duration: 0.6 })
+  })
 
-  // --- 3. 개별 호버 애니메이션 (로고 아이콘) ---
-  const logoIcon = document.querySelector(".logo-icon");
-  if (logoIcon) {
-    logoIcon.addEventListener("mouseenter", () =>
-      animate(logoIcon, { rotate: 360 }, { duration: 0.6 })
-    );
-    logoIcon.addEventListener("mouseleave", () =>
-      animate(logoIcon, { rotate: 0 }, { duration: 0.6 })
-    );
-  }
 
   // --- 4. 테마 토글 로직 & 애니메이션 ---
-  const themeBtn = document.querySelector(".theme-toggle-btn");
+  const themeBtn = document.querySelector(".theme-toggle-btn")!;
   const iconWrapper = themeBtn?.querySelector(".theme-icon-wrapper");
   const sunIcon = iconWrapper?.querySelector(".sun-icon");
   const moonIcon = iconWrapper?.querySelector(".moon-icon");
 
-  if (themeBtn && iconWrapper && sunIcon && moonIcon) {
-    // 4.1. 현재 테마 상태 확인 함수
-    const isDark = () => document.documentElement.classList.contains("dark");
-
-    // 4.2. 아이콘 상태 초기화 (페이지 로드 시)
-    const updateIconsVisibility = () => {
-      const showSun = isDark();
+  document.addEventListener("DOMContentLoaded",() => { 
+    function updateThemeIcon() {
+      const showSun = window.theme.isDark
       //@ts-ignore
       sunIcon.style.display = showSun ? "inline-block" : "none";
       //@ts-ignore
       moonIcon.style.display = showSun ? "none" : "inline-block";
-    };
-    updateIconsVisibility(); // 즉시 실행
-
-    // 4.3. 버튼 호버/탭 애니메이션 (React: whileHover/whileTap)
-    themeBtn.addEventListener("mouseenter", () =>
-      animate(themeBtn, { scale: 1.1, rotate: 180 }, { duration: 0.3 })
-    );
-    themeBtn.addEventListener("mouseleave", () =>
-      animate(themeBtn, { scale: 1.0, rotate: 0 }, { duration: 0.3 })
-    );
-    themeBtn.addEventListener("mousedown", () =>
-      animate(themeBtn, { scale: 0.9 }, { duration: 0.2 })
-    );
-    themeBtn.addEventListener("mouseup", () =>
-      animate(themeBtn, { scale: 1.1 }, { duration: 0.2 })
-    );
-
-    // 4.4. 클릭 이벤트 (테마 변경 + 아이콘 애니메이션)
-    themeBtn.addEventListener("click", () => {
-      // <html>의 'dark' 클래스 토글
-      document.documentElement.classList.toggle("dark");
-
-      // 4.5. 아이콘 전환 애니메이션 (React: key={theme})
-      animate(
-        iconWrapper,
-        { opacity: [0, 1], rotate: [-180, 0] },
-        { duration: 0.3 }
-      );
-      
-      // 애니메이션 직후 아이콘 가시성 업데이트
-      updateIconsVisibility();
-    });
-  }
+    }
+    updateThemeIcon()
 
 
-  // 일단 모르겠고 위에껀 나중에 리팩토링하고 다크모드 추가 ㄱㄱ localstorage theme에 저장하면됨
-  const darkModeBtn = document.querySelector("button[aria-label='Search']")
-  if(darkModeBtn) {
-    darkModeBtn.addEventListener('click', (e) => {
-      
+    themeBtn?.addEventListener("click", (e) => {
+      window.theme.value = window.theme.isDark ? "light" : "dark" as ("dark" | "light")
+      window.theme.set(window.theme.value)
+      updateThemeIcon()
     })
-  } else {
-    console.log("없다 이기")
-  }
+  })
+
+  hover(themeBtn, (el) => {
+    animate(el, { scale: 1.1 }, { duration: 0.3 })
+    return () => animate(el, { scale: 1.0 }, { duration: 0.3 })
+  })
+
+  press(themeBtn, (el) => {
+    animate(el, { scale: 0.9 }, { duration: 0.2 })
+    return () => animate(el, { scale: 1.1 }, { duration: 0.2 })
+  })
+
 </script>
