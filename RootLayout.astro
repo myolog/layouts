@@ -17,15 +17,14 @@ const { seo } = Astro.props as { seo: SeoProps };
 
 <html lang="ko">
 	<head>
-		<link rel="icon" href="/icon/code.svg" type="image/svg+xml">
+		<link rel="icon" href="/icon/code.svg" type="image/svg+xml" />
 		<SEO {...seo} charset="utf-8" />
 	</head>
 	<Pagefind />
-	        
 
 	<RootBackground>
 		<Header />
-		<div class="h-20"/>
+		<div class="h-20"></div>
 		<body>
 			<slot />
 		</body>
@@ -35,46 +34,60 @@ const { seo } = Astro.props as { seo: SeoProps };
 	<script>
 		import mermaid from "mermaid";
 		declare global {
-			interface Window { 
+			interface Window {
 				theme: {
-					value: "dark" | "light"
-					isDark: boolean
-					set: (theme: "dark" | "light") => void
-				} 
+					value: "dark" | "light";
+					isDark: boolean;
+					set: (theme: "dark" | "light") => void;
+				};
 			}
 		}
 
 		window.theme ??= {
-			value: localStorage.getItem("theme") ?? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
-  			isDark: window.matchMedia("(prefers-color-scheme: dark)").matches,
-  			set: (theme) => {},
-		}
+			value:
+				(localStorage.getItem("theme") ??
+				window.matchMedia("(prefers-color-scheme: dark)").matches)
+					? "dark"
+					: "light",
+			isDark: window.matchMedia("(prefers-color-scheme: dark)").matches,
+			set: (theme) => {},
+		};
 
 		window.theme.set = (theme) => {
-			localStorage.setItem("theme", theme)
-			window.theme.isDark = theme === "dark"
-			if(window.theme.value === "dark" && !document.documentElement.classList.contains("dark")) {
-				document.documentElement.classList.add("dark")
-			}  else { 
-				document.documentElement.classList.remove("dark")
+			localStorage.setItem("theme", theme);
+			window.theme.isDark = theme === "dark";
+			if (
+				window.theme.value === "dark" &&
+				!document.documentElement.classList.contains("dark")
+			) {
+				document.documentElement.classList.add("dark");
+			} else {
+				document.documentElement.classList.remove("dark");
 			}
+		};
 
+		if (
+			!("first" in localStorage) ||
+			localStorage.getItem("first") !== "false"
+		) {
+			localStorage.setItem("first", "false");
+			window.theme.value = window.matchMedia(
+				"(prefers-color-scheme: dark)"
+			).matches
+				? "dark"
+				: "light";
+			localStorage.setItem("theme", window.theme.value);
+		} else {
+			window.theme.value = localStorage.getItem("theme") as
+				| "dark"
+				| "light";
 		}
+		window.theme.isDark = window.theme.value === "dark";
+		window.theme.set(window.theme.value);
 
 		document.addEventListener("DOMContentLoaded", () => {
-			if(!("first" in localStorage) || localStorage.getItem("first") !== "false") {
-				localStorage.setItem("first", "false")
-				window.theme.value = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-				localStorage.setItem("theme", window.theme.value)
-			} else { 
-				window.theme.value = localStorage.getItem("theme") as ("dark" | "light")
-			}
-			window.theme.isDark = window.theme.value === "dark"
-			window.theme.set(window.theme.value)
-
-
 			mermaid.initialize({
-				theme: "dark",
+				theme: "dark"
 			});
 		});
 	</script>

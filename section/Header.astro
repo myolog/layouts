@@ -106,17 +106,16 @@ import { Button } from '../../components/Common';
   const sunIcon = iconWrapper?.querySelector(".sun-icon");
   const moonIcon = iconWrapper?.querySelector(".moon-icon");
 
-  document.addEventListener("DOMContentLoaded",() => { 
-    function updateThemeIcon() {
+  function updateThemeIcon() {
       const showSun = window.theme.isDark
       //@ts-ignore
       sunIcon.style.display = showSun ? "inline-block" : "none";
       //@ts-ignore
       moonIcon.style.display = showSun ? "none" : "inline-block";
     }
+
+  document.addEventListener("DOMContentLoaded",() => { 
     updateThemeIcon()
-
-
     themeBtn?.addEventListener("click", (e) => {
       window.theme.value = window.theme.isDark ? "light" : "dark" as ("dark" | "light")
       window.theme.set(window.theme.value)
@@ -133,5 +132,4 @@ import { Button } from '../../components/Common';
     animate(el, { scale: 0.9 }, { duration: 0.2 })
     return () => animate(el, { scale: 1.1 }, { duration: 0.2 })
   })
-
 </script>
