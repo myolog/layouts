@@ -19,10 +19,12 @@
   },
   "author": "N_Joy_Shadow",
   "license": "MIT",
-  "devDependencies": {
-    "astro": ">=5.5.0"
-  },
   "peerDependencies": {
-    "astro": ">=5.5.0"
+    "astro": ">=5.5.0",
+    "astro-icon": ">=1.1.0",
+    "motion": ">=12.23.00"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19"
   }
 }
