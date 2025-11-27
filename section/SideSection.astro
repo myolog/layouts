@@ -6,14 +6,6 @@ import { Card } from "@myolog/components/card"
 import { CategoryData, ContentData } from '@myolog/markdown/data';
 import { Profile } from '@myolog/components/misc';
 
-const categories = [
-  { name: 'JavaScript', count: 24 },
-  { name: 'React', count: 18 },
-  { name: 'TypeScript', count: 15 },
-  { name: 'Node.js', count: 12 },
-  { name: 'CSS', count: 10 },
-  { name: 'Web Design', count: 8 },
-];
 
 const trendingPosts = [
   'Building a REST API with Node.js',
@@ -23,18 +15,18 @@ const trendingPosts = [
 ];
 
 const skillStack = [
-  { name: 'React', icon: 'logos:react', color: '#61DAFB' },
+  { name: 'Astro', icon: 'logos:astro-icon', color: '#61DAFB' },
   { name: 'TypeScript', icon: 'logos:typescript-icon', color: '#3178C6' },
   { name: 'JavaScript', icon: 'logos:javascript', color: '#F7DF1E' },
   { name: 'Node.js', icon: 'logos:nodejs-icon', color: '#339933' },
-  { name: 'Python', icon: 'logos:python', color: '#3776AB' },
-  { name: 'Next.js', icon: 'logos:nextjs-icon', color: '#000000' },
+  { name: 'Java', icon: 'logos:java', color: '#3776AB' },
+  { name: 'Minecraft', icon: 'minecraft', color: '#000000' },
   { name: 'Tailwind', icon: 'logos:tailwindcss-icon', color: '#06B6D4' },
   { name: 'Git', icon: 'logos:git-icon', color: '#F05032' },
   { name: 'Docker', icon: 'logos:docker-icon', color: '#2496ED' },
   { name: 'VS Code', icon: 'logos:visual-studio-code', color: '#007ACC' },
-  { name: 'MongoDB', icon: 'logos:mongodb-icon', color: '#47A248' },
-  { name: 'PostgreSQL', icon: 'logos:postgresql', color: '#4169E1' },
+  { name: 'Unity', icon: 'logos:unity', color: '#47A248' },
+  { name: 'Godot', icon: 'logos:godot-icon', color: '#4169E1' },
 ];
 ---
 
@@ -45,12 +37,12 @@ const skillStack = [
     <Profile/>
   </Card> 
   <!-- Trending Posts -->
+   <!--
   <Card
     class="sidebar-card p-6"
     data-card-id="trending"
   >
     <div class="flex items-center gap-2 mb-4">
-      <!-- 3. 아이콘에 스크립트용 클래스 추가 -->
       <div class="trending-icon">
         <Icon
           name="lucide:trending-up"
@@ -61,7 +53,6 @@ const skillStack = [
     </div>
     <ul class="space-y-3">
       {trendingPosts.map((post) => (
-        <!-- 4. 리스트 아이템에 스크립트용 클래스 추가 -->
         <li class="trending-post-item">
           <a
             href="#"
@@ -73,7 +64,7 @@ const skillStack = [
       ))}
     </ul>
   </Card>
-
+  -->
   <!-- Skill Stack -->
   <Card
     class="sidebar-card p-6 opacity-0"
@@ -116,17 +107,17 @@ const skillStack = [
       <h3 class="text-black dark:text-white">Categories</h3>
     </div>
     <ul class="space-y-2">
-      {categories.map((category) => (
+      {Object.keys(CategoryData).map((category) => (
         <li class="category-item">
           <a
-            href="#"
+            href={`/categories/${category}`}
             class="category-link flex items-center justify-between text-sm group transition-colors text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white"
           >
-            <span>{category.name}</span>
+            <span>{category}</span>
             <span
               class="category-count px-2 py-0.5 rounded-full text-xs transition-colors bg-black/10 group-hover:bg-black/20 dark:bg-white/10 dark:group-hover:bg-white/20"
             >
-              {category.count}
+              {CategoryData[category].articleCount}
             </span>
           </a>
         </li>
@@ -141,11 +132,11 @@ const skillStack = [
   import { animate, inView, stagger } from "motion";
 
   // --- 1. 무한 반복 아이콘 애니메이션 ---
-  animate(
-    ".trending-icon",
-    { rotate: [0, 15, -15, 0], scale: [1, 1.1, 1.1, 1] },
-    { duration: 2, repeat: Infinity, repeatDelay: 3 }
-  );
+  // animate(
+  //   ".trending-icon",
+  //   { rotate: [0, 15, -15, 0], scale: [1, 1.1, 1.1, 1] },
+  //   { duration: 2, repeat: Infinity, repeatDelay: 3 }
+  // );
 
   animate(
     ".stack-icon",
@@ -218,11 +209,11 @@ const skillStack = [
     nlCard.addEventListener('mouseleave', () => animate(nlCard, { scale: 1.0, boxShadow: 'none' }));
   }
 
-  // 3-3. Trending Post 링크 호버
-  document.querySelectorAll('.trending-post-link').forEach(link => {
-    link.addEventListener('mouseenter', () => animate(link, { x: 5, scale: 1.05 }));
-    link.addEventListener('mouseleave', () => animate(link, { x: 0, scale: 1.0 }));
-  });
+  // // 3-3. Trending Post 링크 호버
+  // document.querySelectorAll('.trending-post-link').forEach(link => {
+  //   link.addEventListener('mouseenter', () => animate(link, { x: 5, scale: 1.05 }));
+  //   link.addEventListener('mouseleave', () => animate(link, { x: 0, scale: 1.0 }));
+  // });
 
   // 3-4. Stack Item 호버
   document.querySelectorAll('.stack-item').forEach(item => {
