@@ -1,135 +1,159 @@
 ---
-import { Icon } from 'astro-icon/components';
-import { Button } from '../../components/Common';
+import { Icon } from "astro-icon/components";
+import { Button } from "../../components/Common";
 ---
 
 <header class="astro-header fixed top-0 left-0 right-0 z-50 py-4">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <a
-          href="/"
-          class="logo-container flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-xl border shadow-lg cursor-pointer bg-black/15 border-black/30 dark:bg-white/15 dark:border-white/30"
-        >
-          <div
-            class="logo-icon p-2 rounded-full border bg-linear-to-br from-black/30 to-gray-600/30 border-black/40 dark:from-white/30 dark:to-gray-300/30 dark:border-white/40"
-          >
-            <Icon name="lucide:code-2" class="w-5 h-5 text-black dark:text-white" />
-          </div>
-          <div>
-            <h1 class="text-sm text-black dark:text-white">Myolog</h1>
-            <p class="text-xs text-black/70 dark:text-white/70">
-              Code. Create. Share.
-            </p>
-          </div>
-        </a>
+	<div class="max-w-7xl mx-auto px-6">
+		<div class="flex items-center justify-between gap-4">
+			<div class="flex items-center gap-3">
+				<a
+					href="/"
+					class="logo-container flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-xl border shadow-lg cursor-pointer bg-black/15 border-black/30 dark:bg-white/15 dark:border-white/30"
+				>
+					<div
+						class="logo-icon p-2 rounded-full border bg-linear-to-br from-black/30 to-gray-600/30 border-black/40 dark:from-white/30 dark:to-gray-300/30 dark:border-white/40"
+					>
+						<Icon
+							name="lucide:code-2"
+							class="w-5 h-5 text-black dark:text-white"
+						/>
+					</div>
+					<div>
+						<h1 class="text-sm text-black dark:text-white">
+							Myolog
+						</h1>
+						<p class="text-xs text-black/70 dark:text-white/70">
+							Code. Create. Share.
+						</p>
+					</div>
+				</a>
 
-        <Button icon="lucide:list" title="Categories" variant="translucent" class="relative hidden md:flex" href="/categories" newTab={false}/>
-      </div>
+				<Button
+					icon="lucide:list"
+					title="Categories"
+					variant="translucent"
+					class="relative hidden md:flex"
+					href="/categories"
+					newTab={false}
+				/>
+			</div>
 
+			<div class="flex items-center gap-2">
+				<Button
+					variant="translucent"
+					size="icon"
+					aria-label="Toggle theme"
+					class="theme-toggle-btn"
+				>
+					<div class="theme-icon-wrapper w-5 h-5 flex self-center">
+						<Icon
+							name="lucide:sun"
+							class="sun-icon w-5 h-5 text-white/80"
+						/>
+						<Icon
+							name="lucide:moon"
+							class="moon-icon w-5 h-5 dark:text-white/80"
+						/>
+					</div>
+				</Button>
 
-
-      <div class="flex items-center gap-2">
-        <Button
-          variant="translucent" size="icon"
-          aria-label="Toggle theme"
-          class="theme-toggle-btn"
-        >
-          <div class="theme-icon-wrapper w-5 h-5 flex self-center">
-            <Icon name="lucide:sun" class="sun-icon w-5 h-5 text-white/80" />
-            <Icon name="lucide:moon" class="moon-icon w-5 h-5 dark:text-white/80" />
-          </div>
-        </Button>
-
-        <Button
-          variant="translucent" size="icon"
-          aria-label="Search"
-          class="search-btn"
-        >
-          <Icon
-            name="lucide:search"
-            class="w-5 h-5 text-black/80 dark:text-white/80"
-          />
-        </Button>
-        <Button
-          variant="translucent" size="icon"
-          aria-label="Open menu"
-          class="menu-toggle-btn md:hidden"
-        >
-          <Icon
-            name="lucide:menu"
-            class="w-5 h-5 text-black/80 dark:text-white/80"
-          />
-        </Button>
-      </div>
-    </div>
-  </div>
+				<Button
+					variant="translucent"
+					size="icon"
+					aria-label="Search"
+					class="search-btn"
+				>
+					<Icon
+						name="lucide:search"
+						class="w-5 h-5 text-black/80 dark:text-white/80"
+					/>
+				</Button>
+				<Button
+					variant="translucent"
+					size="icon"
+					aria-label="Open menu"
+					class="menu-toggle-btn md:hidden"
+				>
+					<Icon
+						name="lucide:menu"
+						class="w-5 h-5 text-black/80 dark:text-white/80"
+					/>
+				</Button>
+			</div>
+		</div>
+	</div>
 </header>
 
 <script>
-  import { hover, press, animate } from "motion";
+	import { hover, press, animate } from "motion";
 
-  //  페이지 로드 애니메이션
-  animate(
-    ".astro-header",
-    { y: [-100, 0] },
-    { duration: 0.5, ease: "easeOut" }
-  );
-  animate(
-    ".logo-container",
-    { opacity: [0, 1], x: [-20, 0] },
-    { duration: 0.5 }
-  );
+	//  페이지 로드 애니메이션
+	animate(
+		".astro-header",
+		{ y: [-100, 0] },
+		{ duration: 0.5, ease: "easeOut" }
+	);
+	animate(
+		".logo-container",
+		{ opacity: [0, 1], x: [-20, 0] },
+		{ duration: 0.5 }
+	);
 
-  // 버튼 애니메이션
-  [".logo-container", ".search-btn", ".menu-toggle-btn"].forEach((clazz) => {
-    hover(clazz, (el) => {
-      animate(el, { scale: 1.1}, { duration: 0.2 })
-      return () => animate(el, { scale: 1.0 }, { duration: 0.2 })
-    })
-    press(clazz, (el) => {
-      animate(el, { scale: 0.95 }, { duration: 0.2 })
-      return () => animate(el, { scale: 1.0 }, { duration: 0.2 })
-    })
-  })
+	// 버튼 애니메이션
+	[".logo-container", ".search-btn", ".menu-toggle-btn"].forEach((clazz) => {
+		hover(clazz, (el) => {
+			animate(el, { scale: 1.1 }, { duration: 0.2 });
+			return () => animate(el, { scale: 1.0 }, { duration: 0.2 });
+		});
+		press(clazz, (el) => {
+			animate(el, { scale: 0.95 }, { duration: 0.2 });
+			return () => animate(el, { scale: 1.0 }, { duration: 0.2 });
+		});
+	});
 
+	hover(".logo-icon", (el) => {
+		animate(el, { rotate: 360 }, { duration: 0.6 });
+		return () => animate(el, { rotate: 0 }, { duration: 0.6 });
+	});
 
-  hover(".logo-icon", (el) => {
-    animate(el, { rotate: 360 }, { duration: 0.6 })
-    return () => animate(el, { rotate: 0 }, { duration: 0.6 })
-  })
+	// --- 4. 테마 토글 로직 & 애니메이션 ---
+	const themeBtn = document.querySelector(".theme-toggle-btn")!;
+	const iconWrapper = themeBtn?.querySelector(".theme-icon-wrapper");
+	const sunIcon = iconWrapper?.querySelector(".sun-icon")!;
+	const moonIcon = iconWrapper?.querySelector(".moon-icon")!;
 
+	function updateThemeIcon() {
+		const showSun = window.theme.isDark;
+		//@ts-ignore
+		sunIcon.style.display = showSun ? "inline-block" : "none";
+		//@ts-ignore
+		moonIcon.style.display = showSun ? "none" : "inline-block";
+	}
 
-  // --- 4. 테마 토글 로직 & 애니메이션 ---
-  const themeBtn = document.querySelector(".theme-toggle-btn")!;
-  const iconWrapper = themeBtn?.querySelector(".theme-icon-wrapper");
-  const sunIcon = iconWrapper?.querySelector(".sun-icon");
-  const moonIcon = iconWrapper?.querySelector(".moon-icon");
+	document.addEventListener("DOMContentLoaded", () => {
+		updateThemeIcon();
+		themeBtn?.addEventListener("click", (e) => {
+			window.theme.value = window.theme.isDark
+				? "light"
+				: ("dark" as "dark" | "light");
+			window.theme.set(window.theme.value);
+			updateThemeIcon();
 
-  function updateThemeIcon() {
-      const showSun = window.theme.isDark
-      //@ts-ignore
-      sunIcon.style.display = showSun ? "inline-block" : "none";
-      //@ts-ignore
-      moonIcon.style.display = showSun ? "none" : "inline-block";
-    }
+		});
 
-  document.addEventListener("DOMContentLoaded",() => { 
-    updateThemeIcon()
-    themeBtn?.addEventListener("click", (e) => {
-      window.theme.value = window.theme.isDark ? "light" : "dark" as ("dark" | "light")
-      window.theme.set(window.theme.value)
-      updateThemeIcon()
-    })
-  })
+		window.addEventListener("pagefind:ready", () => {
+			
+		});
+	});
 
-  hover(themeBtn, (el) => {
-    animate(el, { scale: 1.1 }, { duration: 0.3 })
-    return () => animate(el, { scale: 1.0 }, { duration: 0.3 })
-  })
+	hover(themeBtn, (el) => {
+		animate(el, { scale: 1.1 }, { duration: 0.3 });
+		return () => animate(el, { scale: 1.0 }, { duration: 0.3 });
+	});
 
-  press(themeBtn, (el) => {
-    animate(el, { scale: 0.9 }, { duration: 0.2 })
-    return () => animate(el, { scale: 1.1 }, { duration: 0.2 })
-  })
+	press(themeBtn, (el) => {
+		animate(el, { scale: 0.9 }, { duration: 0.2 });
+		return () => animate(el, { scale: 1.1 }, { duration: 0.2 });
+	});
 </script>
