@@ -31,6 +31,21 @@ const { seo } = Astro.props as { seo: SeoProps };
 		<Footer />
 	</RootBackground>
 
+{
+		import.meta.env.RPOD && (
+	<script
+		is:inline
+		src="https://www.googletagmanager.com/gtag/js?id=G-NQSNB090RC"></script>
+	<script is:inline>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag("js", new Date());
+
+		gtag("config", "G-NQSNB090RC");
+	</script>
+)}
 	<script>
 		import mermaid from "mermaid";
 		declare global {
@@ -87,7 +102,7 @@ const { seo } = Astro.props as { seo: SeoProps };
 
 		document.addEventListener("DOMContentLoaded", () => {
 			mermaid.initialize({
-				theme: "dark"
+				theme: "dark",
 			});
 		});
 	</script>
